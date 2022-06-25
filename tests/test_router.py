@@ -11,7 +11,12 @@ import unittest
 from typing import List, Tuple, Dict
 import re
 
-from rerouter import RegExRouter, RegExRoute, RegExRoutePattern, RegExParseError
+from rerouter import (
+    RegExRouter,
+    RegExRoute,
+    RegExRoutePattern,
+    RegExParseError,
+)
 
 router = RegExRouter()
 
@@ -40,7 +45,7 @@ def f_list(rns):
     ("(subscribe)", ""),
     ("(?P<feature>reviews|pushes|checks)", ""),
     (
-        "(?P<filter_name>[+-]path|[+-]fork|[+-]branch|[+-]reviewer):(?P<filter_value>[^:]+)",
+        "(?P<filter_name>[+-]path|[+-]fork|[+-]branch|[+-]reviewer):(?P<filter_value>[^:]+)",  # noqa
         "+",
     ),
 )
@@ -69,7 +74,7 @@ class TestRouter(unittest.TestCase):
 
     def test_router(self):
         f, m = router.route_to(
-            "unsubscribe reviews +path:ts/sdlc/* -fork:main/sdlc +path:ts/vats/*"
+            "unsubscribe reviews +path:ts/sdlc/* -fork:main/sdlc +path:ts/vats/*"  # noqa
         )
         print(f, m)
         expect_parse_error, expect_no_parse_error = True, False
@@ -77,7 +82,7 @@ class TestRouter(unittest.TestCase):
             [
                 # subscribe <feature> [<option>:<value>]+
                 (
-                    "subscribe reviews +path:ts/sdlc/* -fork:main/sdlc +path:ts/vats/*",
+                    "subscribe reviews +path:ts/sdlc/* -fork:main/sdlc +path:ts/vats/*",  # noqa
                     "f_subscribe",
                     expect_no_parse_error,
                     [
@@ -132,12 +137,17 @@ class TestRouter(unittest.TestCase):
                 ),
                 # list [<options>:<value>]*
                 (
-                    "list author:abc statusCode:BEACHED statusCode:FAILED statusCode:PAUSED",
+                    "list author:abc statusCode:BEACHED statusCode:FAILED statusCode:PAUSED",  # noqa
                     "f_list",
                     expect_no_parse_error,
                     [],
                     {
-                        "options": ["author", "statusCode", "statusCode", "statusCode"],
+                        "options": [
+                            "author",
+                            "statusCode",
+                            "statusCode",
+                            "statusCode",
+                        ],
                         "author": "abc",
                         "statusCode": ["BEACHED", "FAILED", "PAUSED"],
                     },
@@ -148,7 +158,10 @@ class TestRouter(unittest.TestCase):
     def _test_regex_route(self, p: str, s: str, match: bool):
         route = RegExRoute(
             patterns=[
-                RegExRoutePattern(re.compile(f"^{x[0]}$"), x[1] if len(x) == 2 else "")
+                RegExRoutePattern(
+                    re.compile(f"^{x[0]}$"),
+                    x[1] if len(x) == 2 else "",
+                )
                 for x in p.split()
             ]
         )
