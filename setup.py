@@ -35,7 +35,7 @@ setup(
     # For a discussion on single-sourcing the version across setup.py and the
     # project code, see
     # https://packaging.python.org/guides/single-sourcing-package-version/
-    version="0.0.1",  # Required
+    version="0.0.2",  # Required
     # This is a one-line description or tagline of what your project does. This
     # corresponds to the "Summary" metadata field:
     # https://packaging.python.org/specifications/core-metadata/#summary
@@ -139,18 +139,6 @@ setup(
         "dev": ["check-manifest"],
         "test": ["coverage"],
     },
-    # To provide executable scripts, use entry points in preference to the
-    # "scripts" keyword. Entry points provide cross-platform support and allow
-    # `pip` to create the appropriate form of executable for the target
-    # platform.
-    #
-    # For example, the following would provide a command called `rerouter` which
-    # executes the function `main` from this package when invoked:
-    entry_points={  # Optional
-        "console_scripts": [
-            "rerouter=rerouter:main",
-        ],
-    },
     # List additional URLs that are relevant to your project as a dict.
     #
     # This field corresponds to the "Project-URL" metadata fields:
@@ -162,8 +150,7 @@ setup(
     # what's used to render the link text on PyPI.
     project_urls={  # Optional
         "Bug Reports": "https://github.com/shijinglu/rerouter/issues",
-        "Funding": "https://donate.pypi.org",
-        "Say Thanks!": "http://saythanks.io/to/example",
+        "Say Thanks!": "https://saythanks.io/to/shijinglu",
         "Source": "https://github.com/shijinglu/rerouter/",
     },
 )
